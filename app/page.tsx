@@ -32,10 +32,10 @@ export default function Home() {
                             }]} categoryId={1} />
                             <ProductsGroupList title="Комбо" items={[{
                                 id: 1,
-                                name: "Чизбаго-питса",
-                                imageUrl: 'https://media.dodostatic.net/image/r:584x584/11ee7d61698827ee9b8db6d0aec53410.avif',
-                                price: 650,
-                                items: [{ price: 650 }]
+                                name: "Две питсы",
+                                imageUrl: 'https://media.dodostatic.net/image/r:584x584/11ee7e21971194ba8cd8a49301256fc4.avif',
+                                price: 1000,
+                                items: [{ price: 1000 }]
                             }]} categoryId={2} />
                         </div>
                     </div>
