@@ -12,7 +12,7 @@ interface Props {
     className?: string;
 }
 
-export const SearchInput: React.FC<Props> = ({ className }) => {
+export const SearchInput = ({ className }: Props) => {
     const [searchQuery, setSearchQuery] = React.useState("");
     const [focused, setFocused] = React.useState(false);
     const [products, setProducts] = React.useState<Product[]>([]);
@@ -23,14 +23,23 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
     });
 
     useDebounce(
-        () => {
-            Api.products.search(searchQuery).then((items) => {
-                setProducts(items);
-            });
+        async () => {
+            try {
+                const response = await Api.products.search(searchQuery);
+                setProducts(response);
+            } catch (error) {
+                console.log(error);
+            }
         },
         250,
         [searchQuery]
     );
+
+    const onClickItem = () => {
+        setFocused(false);
+        setSearchQuery("");
+        setProducts([]);
+    };
 
     return (
         <>
@@ -63,15 +72,17 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
                     >
                         {products.map((product) => (
                             <Link
+                                onClick={onClickItem}
                                 key={product.id}
-                                href={`/products/${product.id}`}
+                                className="flex items-center gap-3 w-full px-3 py-2 hover:bg-primary/10"
+                                href={`/product/${product.id}`}
                             >
                                 <img
                                     className="rounded-sm h-8 w-8"
                                     src={product.imageUrl}
                                     alt={product.name}
                                 />
-                                <div className="px-3 py-2 hover:bg-primary/10"></div>
+                                <span>{product.name}</span>
                             </Link>
                         ))}
                     </div>
