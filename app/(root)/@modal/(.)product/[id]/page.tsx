@@ -1,4 +1,5 @@
 import {
+    ChooseProductModal,
     Container,
     GroupVariants,
     ProductImage,
@@ -12,5 +13,19 @@ export default async function ProductModalPage({
 }: {
     params: { id: string };
 }) {
-    return <h1>12121212</h1>;
+    const product = await prisma.product.findFirst({
+        where: {
+            id: Number(id),
+        },
+        include: {
+            ingredients: true,
+            items: true,
+        },
+    });
+
+    if (!product) {
+        return notFound();
+    }
+
+    return <ChooseProductModal product={product} />;
 }
