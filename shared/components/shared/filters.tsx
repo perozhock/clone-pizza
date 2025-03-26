@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React from "react";
 import { CheckboxFiltersGroup, RangeSlider, Title } from ".";
 import { Input } from "../ui";
-import { useFilters, useIngredients, useQueryFilters } from "@/hooks";
+import { useFilters, useIngredients, useQueryFilters } from "@/shared/hooks";
 
 interface Props {
     className?: string;
