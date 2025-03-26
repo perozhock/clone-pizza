@@ -14,13 +14,13 @@ interface Props {
     listClassName?: string;
 }
 
-export const ProductsGroupList: React.FC<Props> = ({
+export const ProductsGroupList = ({
     title,
     items,
     listClassName,
     categoryId,
     className,
-}) => {
+}: Props) => {
     const setActiveCategoryId = useCategoryStore((state) => state.setActiveId);
     const intersectionRef = React.useRef<HTMLDivElement>(null);
     const intersection = useIntersection(intersectionRef as React.RefObject<HTMLDivElement>, {
