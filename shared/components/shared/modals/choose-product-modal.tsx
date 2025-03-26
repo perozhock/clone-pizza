@@ -2,7 +2,6 @@
 
 import { Dialog, DialogContent } from "@/shared/components/ui/dialog";
 import { cn } from "@/shared/lib/utils";
-import { Product } from "@prisma/client";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { ChoosePizzaForm, ChooseProductForm } from "..";
@@ -29,7 +28,7 @@ export const ChooseProductModal = ({ product, className }: Props) => {
                     <ChoosePizzaForm
                         imageUrl={product.imageUrl}
                         name={product.name}
-                        ingredients={[]}
+                        ingredients={product.ingredients}
                     />
                 :   <ChooseProductForm
                         imageUrl={product.imageUrl}
