@@ -1,6 +1,6 @@
 import { cn } from "@/shared/lib/utils";
 import React from "react";
-import { PizzaImage, Title } from ".";
+import { Title } from ".";
 import { Button } from "../ui";
 
 interface Props {
@@ -22,7 +22,13 @@ export const ChooseProductForm = ({
 
     return (
         <div className={cn(className, "flex flex-1")}>
-            <PizzaImage imageUrl={imageUrl} size={size} />
+            <div className="flex items-center justify-center flex-1 relative w-full">
+                <img
+                    src={imageUrl}
+                    alt={name}
+                    className="relative left-2 top-2 transition-all z-10 duration-300 w-[350px] h-[350px]"
+                />
+            </div>
 
             <div className="w-[490px] bg-[#fcfcfc] p-7">
                 <Title text={name} size="md" className="font-extrabold mb-1" />
