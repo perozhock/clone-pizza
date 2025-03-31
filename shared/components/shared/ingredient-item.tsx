@@ -7,7 +7,7 @@ interface Props {
     name: string;
     price: number;
     active?: boolean;
-    onClick?: () => void;
+    onClick: () => void;
     className?: string;
 }
 
@@ -26,7 +26,7 @@ export const IngredientItem = ({
                 { "border border-primary": active },
                 className
             )}
-            onClick={onclick ? (event) => onClick?.() : undefined}
+            onClick={onClick}
         >
             {active && (
                 <CircleCheck className="absolute top-2 right-2 text-primary" />
