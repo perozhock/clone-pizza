@@ -19,5 +19,5 @@ export const useQueryFilters = (filters: Filters) => {
         if (window.location.search !== `?${newQuery}` && newQuery !== '') {
             router.replace(`?${newQuery}`, { scroll: false });
         }
-    }, [filters, router]);
+    }, [filters]);
 };
