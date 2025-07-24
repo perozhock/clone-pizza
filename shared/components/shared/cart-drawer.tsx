@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 
 import {
     Sheet,
@@ -15,31 +15,16 @@ import Link from "next/link";
 import { Button } from "../ui";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { CartDrawerItem, Title } from ".";
-import { useCartStore } from "@/shared/store";
 import { cn, getCartItemDetails } from "@/shared/lib";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import Image from "next/image";
+import { useCart } from "@/shared/hooks";
 
-interface Props {
-    className?: string;
-}
+export const CartDrawer = ({ children }: React.PropsWithChildren) => {
+    const { totalAmount, items, updateItemQuantity, removeCartItem } =
+        useCart();
 
-export const CartDrawer = ({
-    children,
-    className,
-}: React.PropsWithChildren<Props>) => {
-    // TODO: Check other variants в 20250408a useCartStore
-    const {
-        totalAmount,
-        fetchCartItems,
-        updateItemQuantity,
-        removeCartItem,
-        items,
-    } = useCartStore();
-
-    useEffect(() => {
-        fetchCartItems();
-    }, [fetchCartItems]);
+    const [redirecting, setRedirecting] = useState(false);
 
     const onClickCountButton = (
         id: number,
@@ -108,18 +93,11 @@ export const CartDrawer = ({
                                         <CartDrawerItem
                                             id={item.id}
                                             imageUrl={item.imageUrl}
-                                            details={
-                                                (
-                                                    item.pizzaSize &&
-                                                    item.pizzaType
-                                                ) ?
-                                                    getCartItemDetails(
-                                                        item.ingredients,
-                                                        item.pizzaType as PizzaType,
-                                                        item.pizzaSize as PizzaSize
-                                                    )
-                                                :   ""
-                                            }
+                                            details={getCartItemDetails(
+                                                item.ingredients,
+                                                item.pizzaType as PizzaType,
+                                                item.pizzaSize as PizzaSize
+                                            )}
                                             disabled={item.disabled}
                                             name={item.name}
                                             price={item.price}
@@ -152,8 +130,10 @@ export const CartDrawer = ({
                                         </span>
                                     </div>
 
-                                    <Link href="/cart">
+                                    <Link href="/checkout">
                                         <Button
+                                            onClick={() => setRedirecting(true)}
+                                            loading={redirecting}
                                             type="submit"
                                             className="w-full h-12 text-base"
                                         >
